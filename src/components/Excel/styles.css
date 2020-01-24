@@ -1,0 +1,22 @@
+
+table {
+    border-collapse: collapse;
+}
+
+thead, thead {
+    border: 1px solid black;
+
+}
+
+th {
+    padding: 0 5px;
+}
+
+tr {
+    font-size: 20px;
+    border: 1px solid black;
+}
+
+td {
+    padding: 0 10px;
+}
