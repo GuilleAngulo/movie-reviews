@@ -1,11 +1,11 @@
 import React from 'react';
-import Excel from './components/Excel';
+import Table from './components/Table';
 import { data, headers } from './util/data';
 
 function App() {
   return (
     <div className="App">
-      <Excel headers={headers} initialData={data}/>
+      <Table headers={headers} initialData={data}/>
     </div>
   );
 }
