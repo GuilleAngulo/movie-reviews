@@ -15,7 +15,8 @@ const Table = ({ headers, initialData }) => {
     const [descending, setDescending] = useState(false);
     const [edit, setEdit] = useState(null); //[row-index, cell-index]
     const [search, setSearch] = useState(false);
-    
+
+
     Table.propTypes = {
         headers: PropTypes.arrayOf(PropTypes.any),
         initialData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
@@ -65,7 +66,7 @@ const Table = ({ headers, initialData }) => {
 
     }
 
-    function _search(e) {
+    function doSearch(e) {
         const needle = e.target.value.toLowerCase();
         //search string deleted
         if (!needle) { 
@@ -78,11 +79,36 @@ const Table = ({ headers, initialData }) => {
     }
 
 
+
+    /**function replay() {
+        if (log.length === 0) {
+            console.warn('No state to replay');
+            return;
+        }
+
+        let index = -1;
+        const interval = setInterval(() => {
+            console.log('ENTRA REPLAY');
+            index++;
+            if (index === log.length - 1) {
+                clearInterval(interval);
+            }
+            const state = log[index];
+            setData(state.data);
+            setSortBy(state.sortBy);
+            setDescending(state.descending);
+            setEdit(state.edit);
+            setSearch(state.search);
+        }, 1000);
+    }**/
+
+
+
     
         return (
             <div>
-                <Toolbar toogleSearch={toogleSearch} search={search} />
-
+                {console.log('Rendering Search Component...')}
+                <Toolbar toogleSearch={toogleSearch} data={data} search={search} />
                 <table>
                     <thead onClick={sort}>
                         <tr>
@@ -91,13 +117,13 @@ const Table = ({ headers, initialData }) => {
                                     if(sortBy === index) {
                                         title += descending ? ' \u2191' : ' \u2193'
                                     }
-                                    return (<th key={index}>{title}</th>);
+                                    return (<th position={index} key={index}>{title}</th>);
                                 }
                             )}
                         </tr>
                     </thead>
                     <tbody onDoubleClick={showEditor}>
-                        <Search search={search} headers={headers} _search={_search} />
+                        <Search search={search} headers={headers} doSearch={doSearch} />
                         { 
                             data.map((row, rowIndex) => 
                                 <tr key={rowIndex}>
@@ -121,6 +147,11 @@ const Table = ({ headers, initialData }) => {
                         }
                     </tbody>
                 </table>
+                <div className="instructions">
+                    <p>
+                        <i>* Double click for cells edition, and press enter to save</i>
+                    </p>
+                </div>
             </div>
         );
 }

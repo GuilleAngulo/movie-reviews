@@ -1,20 +1,35 @@
 
 table {
     border-collapse: collapse;
-}
-
-thead, thead {
-    border: 1px solid black;
-
+    width: 95%;
+    table-layout: fixed;
+    background-color: #6d71f1;
+    color: white;
+    border-radius: 15px;
+    border: none;
 }
 
 th {
-    padding: 0 5px;
+    cursor: pointer;
+    border-bottom: 2px solid #00048a;
 }
 
+th[position="0"] {
+    width: 35%;
+}
+
+th[position="1"] {
+    width: 25%;
+}
+
+
 tr {
-    font-size: 20px;
-    border: 1px solid black;
+    font-size: 18px;
+    border-bottom: 1px solid #00048a;
+    
+}
+tr:last-child {
+    border-bottom: none;
 }
 
 td {

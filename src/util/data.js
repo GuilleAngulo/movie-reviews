@@ -2,7 +2,7 @@ export const headers = [
     "Book", "Author", "Language", "Published", "Sales",
 ];
 
-export const data = [
+export let data = [
     ["The Lord of the Rings", "J. R. R. Tolkien", "English", "1954", "150 million"],
     ["The Little Prince (Le Petit Prince)", "Antoine de Saint-Exupéry", "French", "1943", "140 million"],
     ["Harry Potter and the Philosopher's Stone", "J. K. Rowling", "English", "1997", "120 million"],

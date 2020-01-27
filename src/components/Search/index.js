@@ -1,13 +1,14 @@
 import React from 'react';
 import './styles.css';
 
-const Search = ({ search, _search, headers }) => {
+const Search = ({ search, headers, doSearch }) => {
     if (!search) {
         return null;
     }
     
     return (
-        <tr onChange={_search}>
+        <tr onChange={doSearch}>
+        {console.log('Rendering Search Component...')}
         { headers.map((ignore, index) => 
             <td key={index}>
                 <input type="text" data-index={index} />
