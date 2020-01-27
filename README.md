@@ -8,3 +8,4 @@ This little component implements a data table, with the following funcionality:
 - Modify data by double clicking on cells. Press enter for save the new data.
 - Can run two commands: ALT+SHIFT+R for a replay of component history (all previous React state) and ALT+Z for back to the previous React state.
 - Exports the modified file into a CSV | JSON.
+
