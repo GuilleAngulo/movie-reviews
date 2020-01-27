@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Search from '../Search';
@@ -7,6 +7,7 @@ import Toolbar from '../Toolbar';
 import './styles.css';
 
 let preSearchData = null;
+let log = [];
 
 const Table = ({ headers, initialData }) => {
 
@@ -15,6 +16,35 @@ const Table = ({ headers, initialData }) => {
     const [descending, setDescending] = useState(false);
     const [edit, setEdit] = useState(null); //[row-index, cell-index]
     const [search, setSearch] = useState(false);
+
+    //REPLAY ALT+SHIFT+R
+    useEffect(() => {
+        document.onkeydown = (e) => {
+            if (e.altKey && e.shiftKey && e.keyCode === 82) { //ALT + SHIFT + R
+                replay();
+            }
+        }
+    });
+
+    //UNDO 
+    useEffect(() => {
+        document.onkeydown = (e) => {
+            if (e.altKey && e.keyCode === 90) {
+                undo();
+            }
+        }
+    })
+
+    useEffect(() => {
+        log.push({
+            data,
+            sortBy,
+            descending,
+            edit,
+            search
+        });
+        //console.log('State log:', log);
+    }, [data, sortBy, descending, edit, search]);
 
 
     Table.propTypes = {
@@ -79,18 +109,31 @@ const Table = ({ headers, initialData }) => {
     }
 
 
+    function undo() {
+        if (log.length === 0) {
+            console.warn('No state to replay');
+            return;
+        }
+        const previousState = log[log.length - 2];
+        setData(previousState.data);
+        setSortBy(previousState.sortBy);
+        setDescending(previousState.descending);
+        setEdit(previousState.edit);
+        setSearch(previousState.search);
+    }
 
-    /**function replay() {
+
+    function replay() {
         if (log.length === 0) {
             console.warn('No state to replay');
             return;
         }
 
         let index = -1;
+        const logLength = log.length - 1;
         const interval = setInterval(() => {
-            console.log('ENTRA REPLAY');
             index++;
-            if (index === log.length - 1) {
+            if (index === logLength) {
                 clearInterval(interval);
             }
             const state = log[index];
@@ -100,7 +143,8 @@ const Table = ({ headers, initialData }) => {
             setEdit(state.edit);
             setSearch(state.search);
         }, 1000);
-    }**/
+    }
+    
 
 
 
