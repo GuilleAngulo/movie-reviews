@@ -6,7 +6,7 @@ import schema from './util/schema';
 //import Table from './components/Table';
 //import { data, headers } from './util/data';
 
-let data = JSON.parse(localStorage.getItem('data'));
+let data = JSON.parse(localStorage.getItem('data') || '');
 
 if (!data) {
   data = {};
