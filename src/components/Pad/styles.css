@@ -1,0 +1,25 @@
+ .Pad .PadToolbar {
+    margin: 40px;
+  }
+  
+  .Pad .PadToolbarAdd {
+    float: left;
+  }
+  
+  .Pad .PadToolbarSearch {
+    float: right;
+  }
+  ::placeholder {
+    color: #6a9bd8;
+  }
+  
+  .Pad .PadToolbarAddButton {
+    font-size: 18px;
+  }
+  
+  .Pad .PadDatagrid {
+    clear: both;
+    margin: 40px;
+    padding-top: 20px;
+  }
+

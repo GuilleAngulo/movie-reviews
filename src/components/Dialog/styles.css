@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400');
+
+.Dialog {
+    background-color: #ebf5fc;
+    box-shadow: -2px -2px 5px rgba(255,255,255,1),
+                3px 3px 5px rgba(0,0,0,0.1);
+  }
+  
+  .DialogModalOpen {
+    overflow: hidden; /* no body scroll */
+  }
+  
+  .Dialog .DialogHeader {
+    background-color: #cbe7fb;
+    border-radius: 18px 18px 0 0;
+    color: #6a9bd8;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+    padding: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px; 
+    margin: 0;
+    padding: 10px 10px 10px 20px;
+    text-align: left;
+  }
+  
+  .Dialog .DialogBody {
+    max-height: 50vh;
+    overflow-x: hidden;
+    padding: 10px 30px 30px 30px;
+    margin-top:10px;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    color: #6a9bd8;
+  }
+  
+  .Dialog .DialogFooter {
+    padding: 10px;
+    text-align: right;
+  }
+  
+  .DialogModal {
+      background: rgba(0, 0, 0, 0.7);
+      bottom: 0;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 1;
+  }
+  
+  .DialogModal .DialogModalWrap {
+      border-radius: 18px;
+      background: #ebf5fc;
+      margin: 5% auto;
+      width: 350px;
+  }
+  
+  .DialogDismiss {
+    text-decoration: none;
+    color: #6a9bd8;
+    cursor: pointer;
+  }
+  
+  .DialogFooter .Button {
+    margin: 10px;
+  }

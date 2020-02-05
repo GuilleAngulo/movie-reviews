@@ -20,4 +20,5 @@ button, a {
 
 button:hover, a:hover {
     background-color: #00048a; 
+    transform: scale(1.05);
 }
