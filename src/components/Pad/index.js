@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 import Button from '../Button'; //For "add new item"
 import Dialog from '../Dialog'; //For form of "add new item"
@@ -8,19 +8,34 @@ import Form from '../Form';
 
 import './styles.css';
 
+import CRUDStore from '../../flux/CRUDStore';
+import CRUDActions from '../../flux/CRUDActions';
+
 class Pad extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.initialData,
+            //data: props.initialData,
             addnew: false,
+            count: CRUDStore.getCount(),
         };
-        this._preSearchData = null;
+
+        CRUDStore.addListener('change', () => {
+            this.setState({
+                count: CRUDStore.getCount(),
+            });
+        });
+
+        //this._preSearchData = null;
     }
 
     _addNewDialog() {
         this.setState({addnew: true});
     }
+
+
+    /**
+    --- OLD VERSION - WITHOUT FLUX ---
 
     _addNew(action) {
         if (action === 'dismiss') {
@@ -36,6 +51,14 @@ class Pad extends Component {
         });
         this._commitToStorage(data);
     }
+     */
+
+     _addNew(action) {
+         this.setState({addnew: false});
+         if (action === 'confirm') {
+             CRUDActions.create(this.refs.form.getData());
+         }
+     }
 
     _onExcelDataChange(data) {
         this.setState({ data });
@@ -74,6 +97,13 @@ class Pad extends Component {
         this.setState({data: searchdata});
     }
 
+    shouldComponentUpdate(newProps, newState) {
+        return (
+            newState.addnew !== this.state.addnew ||
+            newState.count !== this.state.count
+        );
+    }
+
     render() {
         return (
             <div className="Pad">
@@ -88,19 +118,25 @@ class Pad extends Component {
                     </div>
                     <div className="PadToolbarSearch">
                         <input 
-                            placeholder="Search..."
-                            onChange={this._search.bind(this)}
-                            onFocus={this._startSearching.bind(this)}
-                            onBlur={this._doneSearching.bind(this)}
+                            placeholder={this.state.count === 1 
+                                ?'Search 1 record ...'
+                                : `Search ${this.state.count} records ...`
+                            }
+                            onChange={CRUDActions.search.bind(CRUDActions)}
+                            onFocus={CRUDActions.startSearching.bind(CRUDActions)}
+                            //onChange={this._search.bind(this)}
+                            //onFocus={this._startSearching.bind(this)}
+                            //onBlur={this._doneSearching.bind(this)}
                         />
                     </div>
                 </div>
                 <div className="PadDatagrid">
-                    <Excel 
+                    {/*<Excel 
                         schema={this.props.schema}
                         initialData={this.state.data}
                         onDataChange={this._onExcelDataChange.bind(this)}
-                    />
+                    />*/}
+                    <Excel />
                 </div>
                 {this.state.addnew ?
                     <Dialog 
@@ -111,8 +147,8 @@ class Pad extends Component {
                     >
                         <Form 
                             ref="form"
-                            fields={this.props.schema}
-                        />    
+                            //fields={this.props.schema}
+                        />   
                     </Dialog>
                     :
                     null
@@ -122,6 +158,7 @@ class Pad extends Component {
     }
 }
 
+/**
 Pad.propTypes = {
     schema: PropTypes.arrayOf(
         PropTypes.object,
@@ -130,5 +167,6 @@ Pad.propTypes = {
         PropTypes.object,
     ),
 };
+ */
 
 export default Pad

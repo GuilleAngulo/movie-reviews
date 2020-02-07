@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Actions from '../Actions';
@@ -8,18 +8,46 @@ import Form from '../Form';
 import FormInput from '../FormInput';
 import Rating from '../Rating';
 
+import CRUDStore from '../../flux/CRUDStore';
+
 import './styles.css';
+import CRUDActions from '../../flux/CRUDActions';
 
 class Excel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: this.props.initialData,
+            //data: this.props.initialData,
+            data: CRUDStore.getData(),
             sortby: null,
             descending: false,
             edit: null,
             dialog: null,
         }
+        
+        this.schema = CRUDStore.getSchema();
+        
+        CRUDStore.addListener('change', () => {
+            this.setState({
+                data: CRUDStore.getData(),
+            });
+        });
+    }
+
+    /**
+     --- OLD VERSION WITHUT FLUX ---
+    _deleteConfirmationClick(action) {
+        if (action === 'dismiss') {
+            this._closeDialog();
+            return;
+        }
+        let data = Array.from(this.state.data);
+        data.splice(this.state.dialog.index, 1);
+        this.setState({
+            dialog: null,
+            data,
+        });
+        this._fireDataChange(data);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -29,6 +57,7 @@ class Excel extends Component {
     _fireDataChange(data) {
         this.props.onDataChange(data);
     }
+    
 
     _sort(key) {
         let data = Array.from(this.state.data);
@@ -44,18 +73,10 @@ class Excel extends Component {
             sortby: key,
             descending,
         });
-        this._fireDataChange(data);
+        //this._fireDataChange(data);
     }
 
-    _showEditor(e) {
-        this.setState(
-            {edit: {
-                row: parseInt(e.target.dataset.row, 10),
-                key: e.target.dataset.key,
-            }
-        });
-    }
-
+    
     _save(e) {
         e.preventDefault();
         const value = this.refs.input.getValue();
@@ -68,29 +89,7 @@ class Excel extends Component {
         this._fireDataChange(data);
     }
 
-    _actionClick(rowIndex, action) {
-        this.setState({dialog: {type: action, index: rowIndex}});
-    }
-
-    _deleteConfirmationClick(action) {
-        if (action === 'dismiss') {
-            this._closeDialog();
-            return;
-        }
-        let data = Array.from(this.state.data);
-        data.splice(this.state.dialog.index, 1);
-        this.setState({
-            dialog: null,
-            data,
-        });
-        this._fireDataChange(data);
-    }
-
-    _closeDialog() {
-        this.setState({dialog: null});
-    }
-
-    _saveDataDialog(action) {
+      _saveDataDialog(action) {
         if (action === 'dismiss') {
             this._closeDialog();
             return;
@@ -102,6 +101,69 @@ class Excel extends Component {
             data,
         });
         this._fireDataChange(data);
+    }
+    */
+
+   _sort(key) {
+    const descending = this.state.sortby === key && !this.state.descending;
+    CRUDActions.sort(key, descending);
+    this.setState({
+        sortby: key,
+        descending,
+    });
+   }
+
+   _save(e) {
+       e.preventDefault();
+       //invariant(this.state.edit, 'Messed up edit state');
+       CRUDActions.updateField(
+        this.state.edit.row,
+        this.state.edit.key,
+        this.refs.imput.getValue()
+       );
+
+       this.setState({
+           edit: null,
+       });
+   }
+
+    _showEditor(e) {
+        this.setState(
+            {edit: {
+                row: parseInt(e.target.dataset.row, 10),
+                key: e.target.dataset.key,
+            }
+        });
+    }
+
+
+    _actionClick(rowIndex, action) {
+        this.setState({dialog: {type: action, index: rowIndex}});
+    }
+
+   _deleteConfirmationClick(action) {
+       this.setState({dialog: null});
+       if (action === 'dismiss') {
+           return;
+       }
+       const index = this.state.dialog && this.state.dialog.index;
+       //invariant(typeof index === 'number', 'Unexpected dialog state');
+       CRUDActions.delete(index);
+   }
+
+    _closeDialog() {
+        this.setState({dialog: null});
+    }
+
+    _saveDataDialog(action) {
+        this.setState({dialog: null});
+        if (action === 'dismiss') {
+            return;
+        }
+
+        const index = this.state.dialog && this.state.dialog.index;
+        //invariant(typeof index == 'number', 'Unexpected dialog state');
+        CRUDActions.updateRecord(index, this.refs.form.getData());
     }
 
     render() {
@@ -157,8 +219,10 @@ class Excel extends Component {
             >
                 <Form 
                     ref="form"
-                    fields={this.props.schema}
-                    initialData={this.state.data[this.state.dialog.index]}
+                    //fields={this.schema}
+                    //fields={this.props.schema}
+                    //initialData={this.state.data[this.state.dialog.index]}
+                    recordId={this.state.dialog.index}
                     readonly={readonly}
                 />
             </Dialog>
@@ -170,7 +234,8 @@ class Excel extends Component {
             <table>
                 <thead>
                     <tr>
-                        {this.props.schema.map(item => {
+                        {/** {this.props.schema.map(item => {*/}
+                        {this.schema.map(item => {
                             if (!item.show) return null
                             let title = item.label;
                             /*if (this.state.sortby === item.id) 
@@ -201,7 +266,8 @@ class Excel extends Component {
                             return (
                                 <tr key={rowIndex}>
                                     {Object.keys(row).map((cell, index) => {
-                                        const schema = this.props.schema[index];
+                                        //const schema = this.props.schema[index];
+                                        const schema = this.schema[index];
                                         if (!schema || !schema.show) {
                                             return null;
                                         }
@@ -257,6 +323,7 @@ class Excel extends Component {
     }
 }
 
+/** 
 Excel.propTypes = {
     schema: PropTypes.arrayOf(
         PropTypes.object
@@ -266,5 +333,6 @@ Excel.propTypes = {
     ),
     onDataChange: PropTypes.func,
 }
+*/
 
 export default Excel

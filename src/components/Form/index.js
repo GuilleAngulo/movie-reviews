@@ -4,12 +4,28 @@ import PropTypes from 'prop-types';
 import Rating from '../Rating';
 import FormInput from '../FormInput';
 
+import CRUDStore from '../../flux/CRUDStore';
+
 import './styles.css';
 
 class Form extends Component {
+    
+    fields;
+    initialData;
+
+    constructor(props) {
+        super(props);
+        this.fields = CRUDStore.getSchema();
+        if ('recordId' in this.props) {
+            this.initialData = CRUDStore.getRecord(this.props.recordId);
+        }
+    }
+    
+    
     getData(){
         let data = {};
-        this.props.fields.forEach(field => 
+        //this.props.fields.forEach(field => 
+        this.fields.forEach(field => 
             data[field.id] = this.refs[field.id].getValue()
         );
         return data;
@@ -17,8 +33,11 @@ class Form extends Component {
     render(){
         return(
             <form className="Form">
-                {this.props.fields.map(field => {
-                    const prefilled = this.props.initialData && this.props.initialData[field.id];
+                {/**{this.props.fields.map(field => {
+                 const prefilled = this.props.initialData && this.props.initialData[field.id]; 
+                **/}
+                {this.fields.map(field => {
+                    const prefilled = this.initialData && this.initialData[field.id]; 
                     //WRITABLE
                     if (!this.props.readonly) {
                         return (
@@ -55,6 +74,7 @@ class Form extends Component {
     }
 }
 
+/**
 Form.protoTypes = {
     fields: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -65,5 +85,6 @@ Form.protoTypes = {
     initialData: PropTypes.object,
     readonly: PropTypes.bool,
 };
+ */
 
 export default Form;
