@@ -9,4 +9,6 @@ This little component implements a data table, with the following funcionality:
 - Can run two commands: ALT+SHIFT+R for a replay of all steps made (all previous React state) and ALT+Z for back to the previous React state.
 - Exports the modified file into a CSV | JSON.
 
-<img src="https://github.com/GuilleAngulo/excel-react/blob/master/react-excel.png" width="900">
+## Screens
+
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="900">
