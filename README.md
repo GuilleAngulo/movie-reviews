@@ -9,6 +9,12 @@ This component implements a data table, with the following funcionality:
 - Each row can be: displayed, edited or removed using the actions column.
 - It is possible to switch between light and ark theme (night mode), using th switch at the top-right corner.
 
+### Styled Components 💅
+The app uses styled components to have 'ThemeProvider' feature in order to switch styles between themes.
+
+### Flux Pattern
+It is implemented the flux pattern at 'flux' folder. The store is at 'CRUDStore' and actions are declared at 'CRUDActions'. At the store a EventEmitter is initialized, and everytime the app data is set an event is emitted to the components subscribed to have a data update. In this app the data is stored at localStorage in the browser. This makes the things much easier in order to comunicate the data updates between components.
+
 ## Screens
 
 <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="900">
