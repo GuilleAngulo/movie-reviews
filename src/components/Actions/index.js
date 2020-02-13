@@ -1,20 +1,45 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 
+
+import styled, { ThemeContext } from 'styled-components';
 import './styles.css';
 
-const Actions = props => 
-    <div className="Actions">
+const Actions = props => {
+    const { background, shadow, shadowpress, icon, iconGlow } = useContext(ThemeContext);
+
+    const IconContainer = styled.div`
+        background: ${background};
+        box-shadow: ${shadow};
+        &:active {
+            box-shadow: ${shadowpress};
+        }
+    `;
+
+    return ( 
+    <div 
+        className="Actions"
+        style={{
+            background,
+        }}
+    >
         <span
             tabIndex="0"
             className="ActionsInfo"
             title="More Info"
             onClick={props.onAction.bind(null, 'info')}
             >
-                <div className="icon-container">
-                    <i className="fas fa-info"></i>
-                    {/*&#8505;*/}
-                </div>
+                <IconContainer 
+                className="icon-container"
+                >
+                    <i 
+                    className="fas fa-info"
+                    style={{
+                        color: icon,
+                        textShadow: iconGlow,
+                    }} 
+                    />
+                </IconContainer>
         </span>
         <span
             tabIndex="0"
@@ -22,10 +47,18 @@ const Actions = props =>
             title="Edit"
             onClick={props.onAction.bind(null, 'edit')}
             >
-                <div className="icon-container">
-                    <i className="fas fa-edit"></i>
-                    {/*&#10000;*/}
-                </div>
+                <IconContainer 
+                className="icon-container"
+                >
+                    <i 
+                    className="fas fa-edit"
+                    style={{
+                        color: icon,
+                        textShadow: iconGlow,
+
+                    }} 
+                    />
+                </IconContainer>
         </span>
         <span
             tabIndex="0"
@@ -33,11 +66,21 @@ const Actions = props =>
             title="Delete"
             onClick={props.onAction.bind(null, 'delete')}
             >
-                <div className="icon-container">
-                    <i className="fas fa-ban"></i>
-                </div>
+                <IconContainer 
+                className="icon-container"
+                >
+                    <i 
+                    className="fas fa-ban"
+                    style={{
+                        color: icon,
+                        textShadow: iconGlow,
+                    }} 
+                    />
+                </IconContainer>
         </span>
     </div>
+    );
+}
 
 Actions.propTypes = {
     onAction: PropTypes.func,

@@ -1,19 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 .Button {
     margin: 10px;
     height: 40px;
     align-content: center;
-    font-family: 'Open Sans', sans-serif;
-    background-color: #ebf5fc;
     border: none;
     outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: -2px -2px 5px rgba(255,255,255,1),
-                3px 3px 5px rgba(0,0,0,0.1);
-    color: #6a9bd8;
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
@@ -24,39 +18,3 @@
     letter-spacing: 2px; 
     border-radius: 5px;
 }
-
-.Button:active {
-    /*font-size: 12px;*/
-    box-shadow: inset -2px -2px 5px rgba(255,255,255,1),
-                inset 3px 3px 5px rgba(0,0,0,0.1);
-}
-
-
-/**
-.Button {
-    margin: 5px;
-    height: 30px;
-    border: 2px solid #6a9bd8;
-    transition: all 0.3s ease;
-
-    border-radius: 5px;
-    background-color: #ebf5fc;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: -2px -2px 5px rgba(255,255,255,1),
-                3px 3px 5px rgba(0,0,0,0.1);
-    color: #6a9bd8;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 5px 15px;
-    text-decoration: none;
-    transition-duration: 0.4s;
-    text-transform: uppercase;
-    letter-spacing: 2px; 
-}
-
-.Button:hover{
-    color: #ebf5fc;
-    background-color: #6a9bd8;
-}**/

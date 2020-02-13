@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 import classNames from 'classnames';
+
+import { withTheme } from 'styled-components';
 import './styles.css';
 
 class Dialog extends Component {
@@ -18,7 +20,6 @@ class Dialog extends Component {
        //ESC FOR CLOSE
        document.onkeydown = (e) => {
             if (e.keyCode === 27) {
-                console.log('ESC pressed.');
                 document.body.classList.remove('DialogModalOpen');
                 this.props.onAction('dismiss');
             }
@@ -26,13 +27,27 @@ class Dialog extends Component {
    }
 
    render() {
+
+    const { dialogHeader, dialogBody, text } = this.props.theme;
+
        return (
            <div className={classNames({
                'Dialog': true,
                'DialogModal': this.props.modal,
            })}>
-                <div className={this.props.modal ? 'DialogModalWrap' : null}>
-                    <div className="DialogHeader">{this.props.header}</div>
+                <div 
+                    className={this.props.modal ? 'DialogModalWrap' : null}
+                    style={{
+                        background: dialogBody,
+                        color: text,
+                    }}>
+                    <div 
+                        className="DialogHeader"
+                        style={{
+                            background: dialogHeader,
+                        }}>
+                            {this.props.header}
+                    </div>
                     <div className="DialogBody">{this.props.children}</div>
                     <div className="DialogFooter">
                         {this.props.hasCancel ?
@@ -71,4 +86,4 @@ Dialog.defaultProps = {
     hasCancel: true,
 }
 
-export default Dialog
+export default withTheme(Dialog)

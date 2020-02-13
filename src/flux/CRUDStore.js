@@ -47,13 +47,11 @@ const CRUDStore = {
 
     //Get count of total lines stored
     getCount() {
-        //return data.length;
         return data.count();
     },
 
     //Get data from a specific line at storage
     getRecord(recordId) {
-        //return recordId in data ? data[recordId] : null;
         return data.get(recordId);
     },
 }

@@ -15,15 +15,17 @@ textarea {
 margin: 5px;
 border: none;
 border-radius: 10px 10px 10px 10px;
-font-family: 'Open Sans', sans-serif;
+font-family: inherit;
 font-weight: bold;
 padding: 7px;
-height: 50px;
+height: 70px;
 outline: none;
 letter-spacing: 1px; 
 font-size: 15px;
-color: #6a9bd8;
-background-color: #ebf5fc;
-box-shadow: inset -2px -2px 5px rgba(255,255,255,1),
-            inset 3px 3px 5px rgba(0,0,0,0.1);
+color: inherit;
+background-color: inherit;
+border: none;
+overflow: auto;
+outline: none;
+resize: none;
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-//import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withTheme } from 'styled-components';
 
 import Actions from '../Actions';
 import Dialog from '../Dialog';
@@ -17,7 +17,6 @@ class Excel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //data: this.props.initialData,
             data: CRUDStore.getData(),
             sortby: null,
             descending: false,
@@ -34,76 +33,6 @@ class Excel extends Component {
         });
     }
 
-    /**
-     --- OLD VERSION WITHUT FLUX ---
-    _deleteConfirmationClick(action) {
-        if (action === 'dismiss') {
-            this._closeDialog();
-            return;
-        }
-        let data = Array.from(this.state.data);
-        data.splice(this.state.dialog.index, 1);
-        this.setState({
-            dialog: null,
-            data,
-        });
-        this._fireDataChange(data);
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({data: nextProps.initialData});
-    }
-
-    _fireDataChange(data) {
-        this.props.onDataChange(data);
-    }
-    
-
-    _sort(key) {
-        let data = Array.from(this.state.data);
-        const descending = this.state.sortby === key && !this.state.descending;
-        data.sort((a, b) => {
-            return descending ?
-                (a[key] < b[key] ? 1 : -1)
-                :
-                (a[key] > b[key] ? 1 : -1)
-        });
-        this.setState({
-            data,
-            sortby: key,
-            descending,
-        });
-        //this._fireDataChange(data);
-    }
-
-    
-    _save(e) {
-        e.preventDefault();
-        const value = this.refs.input.getValue();
-        let data = Array.from(this.state.data);
-        data[this.state.edit.row][this.state.edit.key] = value;
-        this.setState({
-            edit: null,
-            data,
-        });
-        this._fireDataChange(data);
-    }
-
-      _saveDataDialog(action) {
-        if (action === 'dismiss') {
-            this._closeDialog();
-            return;
-        }
-        let data = Array.from(this.state.data);
-        data[this.state.dialog.index] = this.refs.form.getData();
-        this.setState({
-            dialog: null,
-            data,
-        });
-        this._fireDataChange(data);
-    }
-    */
-
    _sort(key) {
     const descending = this.state.sortby === key && !this.state.descending;
     CRUDActions.sort(key, descending);
@@ -115,11 +44,10 @@ class Excel extends Component {
 
    _save(e) {
        e.preventDefault();
-       //invariant(this.state.edit, 'Messed up edit state');
        CRUDActions.updateField(
         this.state.edit.row,
         this.state.edit.key,
-        this.refs.imput.getValue()
+        this.refs.input.getValue()
        );
 
        this.setState({
@@ -147,7 +75,6 @@ class Excel extends Component {
            return;
        }
        const index = this.state.dialog && this.state.dialog.index;
-       //invariant(typeof index === 'number', 'Unexpected dialog state');
        CRUDActions.delete(index);
    }
 
@@ -162,7 +89,6 @@ class Excel extends Component {
         }
 
         const index = this.state.dialog && this.state.dialog.index;
-        //invariant(typeof index == 'number', 'Unexpected dialog state');
         CRUDActions.updateRecord(index, this.refs.form.getData());
     }
 
@@ -194,7 +120,8 @@ class Excel extends Component {
     }
 
     _renderDeleteDialog() {
-        const first = this.state.data[this.state.dialog.index];
+        const index = this.state.dialog && this.state.dialog.index;
+        const first = this.state.data.get(index);
         const nameguess = first[Object.keys(first)[0]];
         return (
             <Dialog
@@ -219,9 +146,6 @@ class Excel extends Component {
             >
                 <Form 
                     ref="form"
-                    //fields={this.schema}
-                    //fields={this.props.schema}
-                    //initialData={this.state.data[this.state.dialog.index]}
                     recordId={this.state.dialog.index}
                     readonly={readonly}
                 />
@@ -230,16 +154,21 @@ class Excel extends Component {
     }
 
     _renderTable() {
+
+        
+        const { shadow } = this.props.theme;
+
         return (
-            <table>
+            <table
+                style={{
+                    boxShadow: shadow,
+                }}
+            >
                 <thead>
                     <tr>
-                        {/** {this.props.schema.map(item => {*/}
                         {this.schema.map(item => {
                             if (!item.show) return null
                             let title = item.label;
-                            /*if (this.state.sortby === item.id) 
-                                title += this.state.descending ? ' \u2191' : ' \u2193';*/
 
                             let arrow;
                             if (this.state.sortby === item.id)
@@ -266,7 +195,6 @@ class Excel extends Component {
                             return (
                                 <tr key={rowIndex}>
                                     {Object.keys(row).map((cell, index) => {
-                                        //const schema = this.props.schema[index];
                                         const schema = this.schema[index];
                                         if (!schema || !schema.show) {
                                             return null;
@@ -323,16 +251,4 @@ class Excel extends Component {
     }
 }
 
-/** 
-Excel.propTypes = {
-    schema: PropTypes.arrayOf(
-        PropTypes.object
-    ),
-    initialData: PropTypes.arrayOf(
-        PropTypes.object
-    ),
-    onDataChange: PropTypes.func,
-}
-*/
-
-export default Excel
+export default withTheme(Excel);

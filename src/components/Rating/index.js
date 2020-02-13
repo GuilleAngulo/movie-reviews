@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
 import './styles.css';
 
 class Rating extends Component {
@@ -40,6 +41,7 @@ class Rating extends Component {
     }
 
     render() {
+
         const stars = [];
         for (let i = 1; i <= this.props.max; i++) {
             stars.push(
@@ -53,7 +55,8 @@ class Rating extends Component {
                 </span>  
             );
         }
-        return(
+
+        return (
             <div
             className={classNames({
                 'Rating': true,

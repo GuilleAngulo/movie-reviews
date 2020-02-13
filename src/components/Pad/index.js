@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
-//import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../Button'; //For "add new item"
 import Dialog from '../Dialog'; //For form of "add new item"
 import Excel from '../Excel';
 import Form from '../Form';
+import FormInput from '../FormInput';
 
 import './styles.css';
 
@@ -12,10 +13,10 @@ import CRUDStore from '../../flux/CRUDStore';
 import CRUDActions from '../../flux/CRUDActions';
 
 class Pad extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
-            //data: props.initialData,
             addnew: false,
             count: CRUDStore.getCount(),
         };
@@ -25,33 +26,11 @@ class Pad extends Component {
                 count: CRUDStore.getCount(),
             });
         });
-
-        //this._preSearchData = null;
     }
 
     _addNewDialog() {
         this.setState({addnew: true});
     }
-
-
-    /**
-    --- OLD VERSION - WITHOUT FLUX ---
-
-    _addNew(action) {
-        if (action === 'dismiss') {
-            this.setState({addnew: false});
-            return;
-        }
-
-        let data = Array.from(this.state.data);
-        data.unshift(this.refs.form.getData());
-        this.setState({
-            addnew: false,
-            data,
-        });
-        this._commitToStorage(data);
-    }
-     */
 
      _addNew(action) {
          this.setState({addnew: false});
@@ -105,37 +84,30 @@ class Pad extends Component {
     }
 
     render() {
+
         return (
             <div className="Pad">
                 <div className="PadToolbar">
                     <div className="PadToolbarAdd">
-                        <Button
-                            onClick={this._addNewDialog.bind(this)}
-                            className="PadToolbarAddButton"
-                        >
-                            + add
-                        </Button>
+                            <Button
+                                onClick={this._addNewDialog.bind(this)}
+                                className="PadToolbarAddButton"
+                            >
+                                    + add
+                            </Button>
                     </div>
                     <div className="PadToolbarSearch">
-                        <input 
+                        <FormInput 
                             placeholder={this.state.count === 1 
                                 ?'Search 1 record ...'
                                 : `Search ${this.state.count} records ...`
                             }
                             onChange={CRUDActions.search.bind(CRUDActions)}
                             onFocus={CRUDActions.startSearching.bind(CRUDActions)}
-                            //onChange={this._search.bind(this)}
-                            //onFocus={this._startSearching.bind(this)}
-                            //onBlur={this._doneSearching.bind(this)}
                         />
                     </div>
                 </div>
                 <div className="PadDatagrid">
-                    {/*<Excel 
-                        schema={this.props.schema}
-                        initialData={this.state.data}
-                        onDataChange={this._onExcelDataChange.bind(this)}
-                    />*/}
                     <Excel />
                 </div>
                 {this.state.addnew ?
@@ -147,7 +119,6 @@ class Pad extends Component {
                     >
                         <Form 
                             ref="form"
-                            //fields={this.props.schema}
                         />   
                     </Dialog>
                     :
@@ -158,15 +129,9 @@ class Pad extends Component {
     }
 }
 
-/**
 Pad.propTypes = {
-    schema: PropTypes.arrayOf(
-        PropTypes.object,
-    ),
-    initialData: PropTypes.arrayOf(
-        PropTypes.object,
-    ),
+    toogleTheme: PropTypes.func,
 };
- */
 
-export default Pad
+
+export default Pad;

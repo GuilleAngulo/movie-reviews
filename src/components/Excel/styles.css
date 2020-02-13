@@ -1,34 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
- .Excel input {
-    font: 15px 'Open Sans', sans-serif;
+  .Excel table {
+    width: 100%;
+    border-radius: 10px;
   }
   
   .Excel td {
-    background-color:  #ebf5fc;
     padding: 5px;
-    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
-    color: #6a9bd8;
   }
   
   .Excel th {
-    font-family: 'Open Sans', sans-serif;
     letter-spacing: 1px; 
-    color: #6a9bd8;
     cursor: pointer;
     font-size: 22px;
     font-weight: normal;
     padding: 8px;
     text-align: center;
-  }
-  
-  .Excel table {
-    width: 100%;
-    background-color:  #ebf5fc;
-    box-shadow: -2px -2px 5px rgba(255,255,255,1),
-                3px 3px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
   }
   
   .Excel .ExcelNotSortable {

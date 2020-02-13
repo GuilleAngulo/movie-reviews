@@ -1,30 +1,45 @@
 import React from 'react';
+import styled, { ThemeProvider } from 'styled-components';
+import usePersistedState from './util/usePersistedState';
+
+import light from './styles/themes/light';
+import dark from './styles/themes/dark';
 
 import Pad from './components/Pad';
 import schema from './util/schema';
 import CRUDStore from './flux/CRUDStore';
+import GlobalStyle from './styles/global';
 
-//import Table from './components/Table';
-//import { data, headers } from './util/data';
-
-
-/**let data = JSON.parse(localStorage.getItem('data') || '');
-
-if (!data) {
-  data = {};
-  schema.forEach(item => data[item.id] = item.sample);
-  data = [data];
-}**/
+import SwitchButton from './components/Switch';
 
 
 CRUDStore.init(schema);
 
-function App() {
+const SwitchContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 40px;
+  margin-bottom: 0;
+`;
+
+const App = () => {
+
+  const [theme, setTheme] = usePersistedState('theme', light);
+
+  const toggleTheme = () => {
+    setTheme(theme.title === 'light' ? dark : light);
+  };
+
   return (
-    <div>
-     {/** <Pad schema={schema} initialData={data} /> */} 
-     <Pad />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <SwitchContainer>
+          <SwitchButton toggleTheme={toggleTheme} />
+        </SwitchContainer>
+        <GlobalStyle />
+        <Pad toggleTheme={toggleTheme} />
+      </div>
+    </ThemeProvider>
   );
 }
 

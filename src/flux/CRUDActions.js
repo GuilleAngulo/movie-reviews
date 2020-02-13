@@ -1,33 +1,22 @@
 import CRUDStore from './CRUDStore';
-import {List} from 'immutable';
+//import {List} from 'immutable';
 
 const CRUDActions = {
 
     create(newRecord) {
-        /**let data = CRUDStore.getData();
-        data.unshift(newRecord);
-        CRUDStore.setData(data);**/
         CRUDStore.setData(CRUDStore.getData().unshift(newRecord));
     },
 
     delete(recordId) {
         let data = CRUDStore.getData();
-        //data.splice(recordId, 1);
-        //CRUDStore.setData(data);
         CRUDStore.setData(data.remove(recordId));
     },
 
     updateRecord(recordId, newRecord) {
-        /**let data = CRUDStore.getData();
-        data[recordId] = newRecord;
-        CRUDStore.setData(data);**/
         CRUDStore.setData(CRUDStore.getData().set(recordId, newRecord));
     },
 
     updateField(recordId, key, value) {
-        /**let data = CRUDStore.getData();
-        data[recordId][key] = value;
-        CRUDStore.setData(data);**/
         let record = CRUDStore.getData().get(recordId);
         record[key] = value;
         CRUDStore.setData(CRUDStore.getData().set(recordId, record));

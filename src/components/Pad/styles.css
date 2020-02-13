@@ -10,7 +10,7 @@
     float: right;
   }
   ::placeholder {
-    color: #6a9bd8;
+    color: inherit;
   }
   
   .Pad .PadToolbarAddButton {

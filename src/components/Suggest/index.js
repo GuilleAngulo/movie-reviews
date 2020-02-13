@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+import FormInput from '../FormInput';
 import './styles.css';
 
 class Suggest extends Component {
@@ -18,7 +20,7 @@ class Suggest extends Component {
         const randomid = Math.random().toString(16).substring(2);
         return (
             <div>
-                <input
+                <FormInput
                 list={randomid}
                 defaultValue={this.props.defaultValue}
                 onChange={e => this.setState({value: e.target.value})}

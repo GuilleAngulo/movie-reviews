@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 import Rating from '../Rating';
 import FormInput from '../FormInput';
@@ -24,7 +24,6 @@ class Form extends Component {
     
     getData(){
         let data = {};
-        //this.props.fields.forEach(field => 
         this.fields.forEach(field => 
             data[field.id] = this.refs[field.id].getValue()
         );
@@ -33,9 +32,6 @@ class Form extends Component {
     render(){
         return(
             <form className="Form">
-                {/**{this.props.fields.map(field => {
-                 const prefilled = this.props.initialData && this.props.initialData[field.id]; 
-                **/}
                 {this.fields.map(field => {
                     const prefilled = this.initialData && this.initialData[field.id]; 
                     //WRITABLE
@@ -73,18 +69,5 @@ class Form extends Component {
         );
     }
 }
-
-/**
-Form.protoTypes = {
-    fields: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.string,
-        options: PropTypes.arrayOf(PropTypes.string),
-    })).isRequired,
-    initialData: PropTypes.object,
-    readonly: PropTypes.bool,
-};
- */
 
 export default Form;
