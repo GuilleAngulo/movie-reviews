@@ -12,3 +12,6 @@ This little component implements a data table, with the following funcionality:
 ## Screens
 
 <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="900">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/dark-theme.png" width="900">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-edit.png" width="900">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/add-dark.png" width="900">
