@@ -3,11 +3,11 @@
 This component implements a data table, with the following funcionality:
 
 - The headers and initial data can be uploaded at src/util/schema.js
-- Sorts the data alphabetically by clicking the headers of the table (An up arrow / down arrow will ilustrate it).
+- Sorts the data alphabetically by clicking the headers of the table (An up/down arrow will ilustrate it).
 - A searching field looking for an specific letter or word in order to filter the table data.
 - Modify data by double clicking on cells. Press enter for save the new data.
 - Each row can be: displayed, edited or removed using the actions column.
-- It is possible to switch between light and ark theme (night mode), using th switch at the top-right corner.
+- It is possible to switch between light and dark theme (night mode), using the switch at the top-right corner.
 
 ### Styled Components 💅
 The app uses styled components to have 'ThemeProvider' feature in order to switch styles between themes.
