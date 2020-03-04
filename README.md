@@ -21,5 +21,4 @@ It is implemented the flux pattern at 'flux' folder. The store is at 'CRUDStore'
 <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/dark-theme.png" width="420"> <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/add-dark.png" width="420">
 
 ## 🎥 Video Demo
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/github-youtube.png" width="800">
-
+[![Watch the demo](https://github.com/GuilleAngulo/movie-reviews/blob/master/img/github-youtube.png)](https://www.youtube.com/watch?v=PAjQd3ibD4Y)
