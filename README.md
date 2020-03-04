@@ -15,9 +15,13 @@ The app uses styled components to have 'ThemeProvider' feature in order to switc
 ### Flux Pattern
 It is implemented the flux pattern at 'flux' folder. The store is at 'CRUDStore' and actions are declared at 'CRUDActions'. At the store a EventEmitter is initialized, and everytime the app data is set an event is emitted to the components subscribed to have a data update. In this app the data is stored at localStorage in the browser. This makes the things much easier in order to comunicate the data updates between components.
 
-## Screens
+## 📸 Screens
 
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="900">
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/dark-theme.png" width="900">
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-edit.png" width="900">
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/add-dark.png" width="900">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="400">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/dark-theme.png" width="400">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-edit.png" width="400">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/add-dark.png" width="400">
+
+## 🎥 Video Demo
+
+
