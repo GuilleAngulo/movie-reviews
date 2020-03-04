@@ -17,8 +17,8 @@ It is implemented the flux pattern at 'flux' folder. The store is at 'CRUDStore'
 
 ## 📸 Screens
 
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="450"> <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-edit.png" width="450">
-<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/dark-theme.png" width="450"> <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/add-dark.png" width="450">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-theme.png" width="420"> <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/light-edit.png" width="420">
+<img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/dark-theme.png" width="420"> <img src="https://github.com/GuilleAngulo/movie-reviews/blob/master/img/add-dark.png" width="420">
 
 ## 🎥 Video Demo
 
